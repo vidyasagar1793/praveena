@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response Page</title>\
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+        function get_response(){
+            var questions = $('#questions').val();
+            $.ajax({
+                url: '/predict',
+                data: {data:questions},
+                type: 'POST',
+                success: function(response){
+                    console.log("The question is sended");
+                    $('#response_para').text(response.chat);
+                    $('#questions').val('');
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <h2 style="text-align: center;">Enter the Questions Here</h2>
+    <form method="post">
+        <input type="text" id="questions" required>
+        <p id="response_para"></p>
+    </form>
+    <button onclick="get_response()">Get Response</button>
+</body>
+</html>
